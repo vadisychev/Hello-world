@@ -65,6 +65,15 @@ def draw_land(x, y, width, height):
 
 
 def draw_clouds_and_sun(width, height):
+    draw_clouds()
+    draw_sun()
+
+
+def draw_clouds():
+    pass
+
+
+def draw_sun():
     pass
 
 
