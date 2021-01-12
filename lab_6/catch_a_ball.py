@@ -3,9 +3,12 @@ import pygame
 from pygame.draw import *
 from random import randint
 
+# pygame module initialization
 pygame.init()
 
-print('Please input size dimension with space separation')
+# Create surface (screen) and set basic parameters: screen size, set of colors, FPS.
+
+# print('Please input size dimension with space separation')
 # size = input().split(' ')
 # width, height = int(size[0]), int(size[1])
 width, height = 500, 500
@@ -26,6 +29,12 @@ COLORS = (grey, white, red, orange, yellow, green,
 
 
 def draw_a_ball():
+    """
+    Draw a ball (circle) with a center in (x, y) point and radius.
+    Ball dimension and position are set randomly.
+    Ball color is set randomly from set of COLORS which is listed before
+    :return: None
+    """
     global x, y, radius
     x = randint(0, width)
     y = randint(0, height)
@@ -35,6 +44,14 @@ def draw_a_ball():
 
 
 def event_handler(mouse_event):
+    """
+    Handle mouse clicks:
+    1) Check does ball cross with mouse;
+    2) Draw white ball at click place
+    3) Print mouse event type and position (x, y).
+    :param mouse_event: event.MOUSEBUTTONDOWN
+    :return: None
+    """
     check_circles_crossing(mouse_event.pos, x, y, radius)
     circle(screen, (255, 255, 255), mouse_event.pos, 20)
     pygame.display.update()
@@ -42,6 +59,12 @@ def event_handler(mouse_event):
 
 
 def calculate_distance(event_coords, circle_coords):
+    """
+    Calculate distance between ball center and click.
+    :param event_coords: Mouse click coordinates
+    :param circle_coords: Ball center coordinates
+    :return: distance between ball center and click
+    """
     x_coords_square = (event_coords[0] - circle_coords[0])**2
     y_coords_square = (event_coords[1] - circle_coords[1])**2
     distance = (x_coords_square + y_coords_square)**0.5
@@ -49,6 +72,14 @@ def calculate_distance(event_coords, circle_coords):
 
 
 def check_circles_crossing(mouse_event_coords, x, y, radius):
+    """
+    Check whether click cross the ball. Print "WIN" message if click lays inside ball's borders.
+    :param mouse_event_coords: Coordinates of mouse click
+    :param x: X coordinate of the ball center
+    :param y: Y coordinate of the ball center
+    :param radius: Radius of the ball
+    :return: None
+    """
     distance = calculate_distance(mouse_event_coords, (x, y))
     if distance <= radius + 40:
         print('WIN')
